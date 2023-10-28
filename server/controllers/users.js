@@ -9,13 +9,14 @@ const maxAge = 3*24*60*60;
 router.post('/signup', async(req,res) =>{
     const {email,password} = req.body;
     const username = userUtils.createUserName(email);
+    
     try{
 
         const salt= await bcrypt.genSalt();
         hashedPassword = await bcrypt.hash(password,salt);
         const user = await User.create({username,email,password:hashedPassword});
-        const token = createToken(user._id);
-        res.cookie('jwt',token,{httpOnly:true,maxAge: maxAge*1000});
+        const token = createToken(user);
+        res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
         
         return res.status(201).json({token: `Bearer ${token}`,user});
     }catch(e){
@@ -24,15 +25,17 @@ router.post('/signup', async(req,res) =>{
 });
 
 router.post('/login', async(req,res) => {
+    console.log(req.body);
     const {email,password} = req.body;
     try{
         const user = await User.findOne({email:email});
-        console.log("hello")
+        
         if(user){
             const auth = await bcrypt.compare(password,user.password)
             if(auth){
-                const token = createToken(user._id);
-                return res.status(200).send({token: `Bearer ${token}`})
+                const token = createToken(user);
+                res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
+                return res.status(200).send({token: `Bearer ${token}`,user})
             }
             return res.status(401).send("password is incorrect")
         }

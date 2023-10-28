@@ -1,9 +1,11 @@
 import React from 'react'
 import SignupForm from '../components/SignupForm'
+
+
 function Login() {
   return (
-    <SignupForm/>
+    <SignupForm props="login"/>
   )
 }
 
-export default Login
+export default Login;
