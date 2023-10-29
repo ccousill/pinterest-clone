@@ -34,28 +34,38 @@ function SignupForm({ props }) {
     }
   };
   let title = <h1>Login </h1>;
-  let buttonText = "Login";
+  let buttonText = "Log in";
   if (props === "signup") {
     title = <h1>Sign up</h1>;
     buttonText = "Sign up";
   }
   return (
-    <Card>
+    <Card className="py-6">
       <h1 className="text-center">{title}</h1>
       <form onSubmit={handleSignup} className="flex flex-col w-1/2 m-auto">
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button type="submit" className="bg-red-600 mx-auto my-5">{buttonText}</Button>
+
+          <label htmlFor="email">Email: </label>
+          <input
+            type="email"
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="rounded-xl py-2 px-3 focus:outline-none focus:ring-1 focus:border-blue-300"
+            placeholder="Email"
+          />
+
+        
+          <label htmlFor="password">Password: </label>
+          <input
+            type="password"
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
+            className="rounded-xl py-2 px-3 focus:outline-none focus:ring-1 focus:border-blue-300"
+            placeholder="Password"
+          />
+
+        <button type="submit" className="py-2 w-full rounded-3xl text-white bg-red-600 mx-auto my-5 hover:bg-red-500">
+          {buttonText}
+        </button>
       </form>
     </Card>
   );

@@ -24,11 +24,11 @@ function Navbar() {
         </div>
 
         <div className="flex flex-wrap p-3 flex-row items-center text-white space-x-3 text-center">
-          <NavLink to="" className={({isActive}) => isActive ? "bg-black py-3 w-36 rounded-3xl" : "py-3 w-36 rounded-3xl hover:bg-black"}>
+          <NavLink to="" className={({isActive}) => isActive ? "bg-black py-2 w-36 rounded-3xl" : "py-2 w-36 rounded-3xl hover:bg-black"}>
             Home
           </NavLink>
 
-          <NavLink to="pins" className={({isActive}) => isActive ? "bg-black py-3 w-36 rounded-3xl" : "py-3 w-36 rounded-3xl hover:bg-black"}>
+          <NavLink to="pins" className={({isActive}) => isActive ? "bg-black py-2 w-36 rounded-3xl" : "py-2 w-36 rounded-3xl hover:bg-black"}>
             Pins
           </NavLink>
         </div>
@@ -37,12 +37,12 @@ function Navbar() {
          
 
           {!isAuth && (
-            <NavLink to="signup" className={({isActive}) => isActive ? "bg-red-600 py-3 w-36 rounded-3xl" : "py-3 w-36 rounded-3xl hover:bg-red-500"}>
+            <NavLink to="signup" className={({isActive}) => isActive ? "bg-red-600 py-2 w-36 rounded-3xl" : "py-2 w-36 rounded-3xl hover:bg-red-500"}>
               Sign up
             </NavLink>
           )} 
            {!isAuth && (
-            <NavLink to="login" className={({isActive}) => isActive ? "bg-red-600 py-3 w-36 rounded-3xl" : "py-3 w-36 rounded-3xl hover:bg-red-500"}>
+            <NavLink to="login" className={({isActive}) => isActive ? "bg-red-600 py-2 w-36 rounded-3xl" : "py-2 w-36 rounded-3xl hover:bg-red-500"}>
               Login
             </NavLink>
           )}

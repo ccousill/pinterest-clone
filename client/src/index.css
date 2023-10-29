@@ -7,14 +7,14 @@
     @apply text-2xl;
   }
   input {
-    border: solid 1px;
+    border: solid 2px rgb(219, 218, 218);
   }
   .card{
       background: white;
       box-shadow: 0 2px 8px rgba(0,0,0,0.26);
       border-radius: 10px;
-      width: 50%;
-      margin: auto;
+      width: 25%;
+      margin: 5rem auto;
   }
 
   .backdrop {
