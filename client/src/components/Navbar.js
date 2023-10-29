@@ -48,9 +48,9 @@ function Navbar() {
           )}
 
           {isAuth && (
-            <button onClick={handleLogout}>
-              <Button className="bg-red-500 hover:bg-red-400">Logout</Button>
-            </button>
+           
+              <Button onClick={handleLogout} className="bg-red-500 hover:bg-red-400">Logout</Button>
+         
           )}
         </div>
 

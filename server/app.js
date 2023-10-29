@@ -5,6 +5,7 @@ const cors = require('cors');
 const userRouter = require("./controllers/users")
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+require('dotenv').config();
 
 const corsOptions = {
     origin: 'http://localhost:3000',
