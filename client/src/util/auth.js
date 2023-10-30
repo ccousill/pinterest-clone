@@ -4,6 +4,9 @@ import {redirect} from 'react-router-dom'
 
 export const getTokenDuration = () =>{
     const token = Cookies.get('jwt');
+    if(!token){
+        return null;
+    }
     const decodedToken = jwtDecode(token);
     const expiration = decodedToken.exp
     const date = new Date();
@@ -21,6 +24,7 @@ export const getAuthToken = () =>{
     if(tokenDuration < 0){
         return 'EXPIRED'
     }
+
     return token; 
 }
 

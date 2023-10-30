@@ -16,7 +16,13 @@ router.post('/signup', async(req,res) =>{
         hashedPassword = await bcrypt.hash(password,salt);
         const likes = []
         const user = await User.create({username,email,password:hashedPassword,likes});
-        const token = createToken(user);
+
+        const tokenData = {
+            _id: user._id,
+            username: user.username,
+            email: user.email
+        }
+        const token = createToken(tokenData);
         res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
         
         return res.status(201).json({token: `Bearer ${token}`,user});
@@ -29,11 +35,16 @@ router.post('/login', async(req,res) => {
     const {email,password} = req.body;
     try{
         const user = await User.findOne({email:email});
-        
+        console.log(user)
         if(user){
             const auth = await bcrypt.compare(password,user.password)
             if(auth){
-                const token = createToken(user);
+                const tokenData = {
+                    _id: user._id,
+                    username: user.username,
+                    email: user.email
+                }
+                const token = createToken(tokenData);
                 res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
                 return res.status(200).send({token: `Bearer ${token}`,user})
             }
@@ -66,9 +77,9 @@ router.post('/profile/like', async(req,res) =>{
     try{
         const user = await User.findByIdAndUpdate(userId,{$push:{likes:photoObject}});  
         const updatedUser = {_id:user._id,username:user.username,email:user.email,password:user.password, likes: [...user.likes, photoObject]}  
-        const token = createToken(updatedUser);
-        res.clearCookie('jwt');
-        res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
+        // const token = createToken(updatedUser);
+        // res.clearCookie('jwt');
+        // res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
         //modify user list to add photo
         return res.status(200).send({updatedUser})
     }catch(e){

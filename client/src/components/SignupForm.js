@@ -31,13 +31,14 @@ function SignupForm({ props }) {
       console.log(e);
     }
   };
-  let title = <h1>Login </h1>;
+  let title = "Login";
   let buttonText = "Log in";
   if (props === "signup") {
-    title = <h1>Sign up</h1>;
+    title = "Sign up";
     buttonText = "Sign up";
   }
   return (
+
     <Card className="py-6 lg:w-1/4 w-1/2">
       <h1 className="text-center">{title}</h1>
       <form onSubmit={handleSignup} className="flex flex-col w-1/2 m-auto">

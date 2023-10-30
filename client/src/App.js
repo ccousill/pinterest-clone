@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { fetchUserData } from './util/user'
 import './App.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home'
@@ -10,6 +11,7 @@ import { checkAuthLoader, tokenLoader, checkSignInState } from './util/auth'
 import {action as logoutAction} from './pages/Logout'
 import {action as signinAction} from './pages/SigninAction'
 import PinLikes from './pages/PinLikes'
+import { useDispatch } from 'react-redux'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,11 @@ const router = createBrowserRouter([
 ])
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    fetchUserData(dispatch)
+  },[dispatch])
+
   return (
     <RouterProvider router={router}/>
   )
