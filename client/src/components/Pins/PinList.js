@@ -10,8 +10,6 @@ function PinList() {
     const dispatch = useDispatch()
     const page = useRef(1);
 
-    console.log(photos)
-    console.log(isLoading)
     const fetchPhotoHandler = async() =>{
         
        const response = await getRandomPhotos();
@@ -22,7 +20,6 @@ function PinList() {
     const handleScroll = useCallback(async() => {
         if(window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight){
             const response = await getRandomPhotos();
-            console.log("new photos",response.data)
             dispatch(pinActions.addPhotos(response.data))
             page.current += 1
         }
@@ -39,7 +36,6 @@ function PinList() {
         return <p>LOADING...</p>
     }
 
-    console.log("all photos:",photos);
     const pinList = photos.map((item)=>{
         return (<Pin key={item.id} id={item.id} description={item.description} img={item.urls.regular} />)
     })

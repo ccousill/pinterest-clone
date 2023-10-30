@@ -10,7 +10,6 @@ function SignupForm({ props }) {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const submit = useSubmit();
-  console.log(props);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -25,7 +24,7 @@ function SignupForm({ props }) {
       } else {
         response = await userService.signup(userLogin);
       }
-      console.log(response.data);
+
       dispatch(userActions.login(response.data));
       submit(null, { action: "/signinAction", method: "post" });
     } catch (e) {

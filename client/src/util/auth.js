@@ -13,7 +13,6 @@ export const getTokenDuration = () =>{
 
 export const getAuthToken = () =>{
     const token = Cookies.get('jwt');
-    console.log("under the hood", token)
     if(!token){
         return null;
     }
@@ -22,7 +21,6 @@ export const getAuthToken = () =>{
     if(tokenDuration < 0){
         return 'EXPIRED'
     }
-    console.log("wowza",token)
     return token; 
 }
 

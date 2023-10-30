@@ -1,5 +1,5 @@
 const express = require('express');
-
+const {authenticateMiddleware} = require('../utils/authUtil');
 const router = express.Router();
 const User = require('../models/User');
 const userUtils = require('../utils/userUtil');
@@ -14,7 +14,8 @@ router.post('/signup', async(req,res) =>{
 
         const salt= await bcrypt.genSalt();
         hashedPassword = await bcrypt.hash(password,salt);
-        const user = await User.create({username,email,password:hashedPassword});
+        const likes = []
+        const user = await User.create({username,email,password:hashedPassword,likes});
         const token = createToken(user);
         res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
         
@@ -25,7 +26,6 @@ router.post('/signup', async(req,res) =>{
 });
 
 router.post('/login', async(req,res) => {
-    console.log(req.body);
     const {email,password} = req.body;
     try{
         const user = await User.findOne({email:email});
@@ -45,6 +45,37 @@ router.post('/login', async(req,res) => {
 
 
 });
+
+router.get('/profile/:id', authenticateMiddleware, async(req,res) =>{
+    const id = req.params.id
+    try{
+        const user = await User.findOne({_id:id});
+        return res.status(200).send({user})
+    }catch(e){
+        return res.status(400).send(e);
+    }
+});
+
+router.post('/profile/like', async(req,res) =>{
+    const {userId,photoId,imgURL,description} = req.body
+    const photoObject = {
+        photoId,
+        imgURL,
+        description
+    }
+    try{
+        const user = await User.findByIdAndUpdate(userId,{$push:{likes:photoObject}});  
+        const updatedUser = {_id:user._id,username:user.username,email:user.email,password:user.password, likes: [...user.likes, photoObject]}  
+        const token = createToken(updatedUser);
+        res.clearCookie('jwt');
+        res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
+        //modify user list to add photo
+        return res.status(200).send({updatedUser})
+    }catch(e){
+         res.send({message:"could not like message"})
+    }
+})
+
 
 
 

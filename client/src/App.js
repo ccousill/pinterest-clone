@@ -9,6 +9,7 @@ import Signup from './pages/Signup'
 import { checkAuthLoader, tokenLoader, checkSignInState } from './util/auth'
 import {action as logoutAction} from './pages/Logout'
 import {action as signinAction} from './pages/SigninAction'
+import PinLikes from './pages/PinLikes'
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,8 @@ const router = createBrowserRouter([
       {path:"signup", element: <Signup/>, loader: checkSignInState},
       {path: "pins", element: <Pins/>, loader:checkAuthLoader},
       {path: "logout", action: logoutAction},
-      {path: "signinAction", action: signinAction}
+      {path: "signinAction", action: signinAction},
+      {path: "profile", element: <PinLikes/>, loader:checkAuthLoader}
       
     ]
   }

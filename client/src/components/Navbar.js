@@ -31,6 +31,10 @@ function Navbar() {
           <NavLink to="pins" className={({isActive}) => isActive ? "bg-black py-2 w-36 rounded-3xl" : "py-2 w-36 rounded-3xl hover:bg-black"}>
             Pins
           </NavLink>
+          
+          <NavLink to="profile" className={({isActive}) => isActive ? "bg-black py-2 w-36 rounded-3xl" : "py-2 w-36 rounded-3xl hover:bg-black"}>
+            Likes
+          </NavLink>
         </div>
 
         <div className="flex flex-wrap flex-grow p-3 flex-row-reverse items-center text-white space-x-3 space-x-reverse text-center">

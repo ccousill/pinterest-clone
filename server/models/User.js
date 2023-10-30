@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
         required:[true,'Please enter a password'],
         unique: true
         // minLength:[6,'Minimum password length is 6 characters']
+    },
+    likes: {
+        type:Array,
+        required: true
     }
 });
 

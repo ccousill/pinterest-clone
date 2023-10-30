@@ -9,7 +9,6 @@ function Root() {
   const submit = useSubmit();
   const dispatch = useDispatch();
   useEffect(() =>{
-    console.log("root use effect fired")
     if(!token){
       return;
     }

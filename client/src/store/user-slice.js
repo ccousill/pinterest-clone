@@ -6,12 +6,14 @@ let initialState = {user:{},isAuth:false}
 
 if(token){
     const decodedToken = jwtDecode(token);
-    console.log(decodedToken)
+    console.log("decoded token",decodedToken)
+
 
     initialState = {user:{
         id: decodedToken.id._id,
         username: decodedToken.id.username,
         email: decodedToken.id.email,
+        likes: decodedToken.id.likes.length === 0 ? [] : decodedToken.id.likes,
         token: token
     }, isAuth: true}
 }
@@ -26,16 +28,19 @@ const userSlice = createSlice({
                 id: data.user._id,
                 username: data.user.username,
                 email: data.user.email,
+                likes: data.user.likes,
                 token: data.token
             }
             state.user = userData;
             state.isAuth = true;
         },
+        addLike(state,action){
+            state.user = {...state.user, likes: [...state.user.likes, action.payload ]}
+        },
         logout(state){ 
             state.user = {};
             state.isAuth = false;
         }
-        
     }
 })
 
