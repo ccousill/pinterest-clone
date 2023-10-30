@@ -13,7 +13,11 @@ const pinSlice = createSlice({
         },
         toggleLoading(state,action){
             state.isLoading = action.payload
+        },
+        addPhotos(state,action){
+            state.photos = [...state.photos, ...action.payload]
         }
+        
     }
 })
 

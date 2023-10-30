@@ -39,7 +39,7 @@ function SignupForm({ props }) {
     buttonText = "Sign up";
   }
   return (
-    <Card className="py-6">
+    <Card className="py-6 lg:w-1/4 w-1/2">
       <h1 className="text-center">{title}</h1>
       <form onSubmit={handleSignup} className="flex flex-col w-1/2 m-auto">
 

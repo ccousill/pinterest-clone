@@ -1,4 +1,5 @@
 import React from "react";
+import HomeContent from "../components/UI/Home/Home";
 // import { getTokenDuration } from '../util/auth';
 // import {  useRouteLoaderData } from "react-router-dom";
 // import { useSelector } from "react-redux";
@@ -15,9 +16,7 @@ function Home() {
 
 
   return (
-    <div>
-      HomePage
-    </div>
+    <HomeContent/>
   );
 }
 
