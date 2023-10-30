@@ -21,3 +21,10 @@ export const likePhoto = async(data) =>{
         withCredentials: true
     });
 }
+export const unlikePhoto = async(data) =>{
+    return await axios.post('http://localhost:4000/api/users/profile/unlike',data,{
+         withCredentials: true
+     });
+}
+
+

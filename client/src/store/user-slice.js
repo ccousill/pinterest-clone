@@ -22,6 +22,12 @@ const userSlice = createSlice({
         addLike(state,action){
             state.user = {...state.user, likes: [...state.user.likes, action.payload ]}
         },
+        removeLike(state,action){
+            const {photoId} = action.payload;
+            const filterArray = state.user.likes.filter(obj => obj.photoId !== photoId);
+            console.log("array filter",filterArray)
+            state.user = {...state.user,likes:filterArray}
+        },
         logout(state){ 
             state.user = {};
             state.isAuth = false;

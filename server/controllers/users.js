@@ -87,6 +87,16 @@ router.post('/profile/like', async(req,res) =>{
     }
 })
 
+router.post('/profile/unlike', async(req,res) =>{
+    const {userId,photoId} = req.body
+    try{
+        const user = await User.updateOne({_id:userId}, {$pull:{likes:{photoId:photoId}}});
+        res.send({user});
+    }catch(e){
+        console.log("could not unlike photo")
+    }
+})
+
 
 
 

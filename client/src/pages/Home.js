@@ -22,9 +22,6 @@ function Home() {
     console.log("cookie",decoded)
   }
 
-
-
-
   return (
     <div>
     <HomeContent/>

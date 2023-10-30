@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import { userActions } from '../../store/user-slice'
-import { likePhoto } from '../../services/user'
+import { likePhoto, unlikePhoto } from '../../services/user'
 function Pin({id,img,description}) {
     const user = useSelector(state => state.user.user)
     const isLiked = user.likes.some(obj => obj.photoId === id)
@@ -33,6 +33,21 @@ function Pin({id,img,description}) {
     }
 
     const handleUnlike = async() =>{
+        const userId = user.id;
+
+        const payload = {
+          userId: userId,
+          photoId: id
+        }
+
+        try{
+          const response = await unlikePhoto(payload)
+          console.log(payload)
+          dispatch(userActions.removeLike(payload));
+          console.log(response.data)
+        }catch(e){
+          console.log("could not unlike photo")
+        }
 
     }
 

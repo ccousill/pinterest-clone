@@ -9,7 +9,6 @@ function PinList() {
     const isLoading = useSelector(state => state.pin.isLoading)
     const dispatch = useDispatch()
     const page = useRef(1);
-
     const fetchPhotoHandler = async() =>{
         
        const response = await getRandomPhotos();
