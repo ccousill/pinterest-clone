@@ -1,7 +1,6 @@
 import Cookies from 'js-cookie';
 import {jwtDecode} from 'jwt-decode';
 import {redirect} from 'react-router-dom'
-
 export const getTokenDuration = () =>{
     const token = Cookies.get('jwt');
     if(!token){
