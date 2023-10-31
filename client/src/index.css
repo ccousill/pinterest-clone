@@ -73,7 +73,8 @@
     left: 5%;
     width: 90%;
     background-color: white;
-    padding: 1rem;
+    padding-top: 1rem;
+    padding-bottom:1rem;
     border-radius: 14px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     z-index: 30;
@@ -94,6 +95,21 @@
         opacity: 1;
      }
 }
+
+.image-fade-out {
+  animation: fadeOutAnimation ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeOutAnimation {
+  0% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0;
+   }
+  }
 
   .bump {
     animation: bump 300ms ease-out;

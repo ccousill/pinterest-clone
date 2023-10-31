@@ -15,7 +15,8 @@ router.post('/signup', async(req,res) =>{
         const salt= await bcrypt.genSalt();
         hashedPassword = await bcrypt.hash(password,salt);
         const likes = []
-        const user = await User.create({username,email,password:hashedPassword,likes});
+        const posts = []
+        const user = await User.create({username,email,password:hashedPassword,likes,posts});
 
         const tokenData = {
             _id: user._id,
@@ -24,7 +25,6 @@ router.post('/signup', async(req,res) =>{
         }
         const token = createToken(tokenData);
         res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
-        
         return res.status(201).json({token: `Bearer ${token}`,user});
     }catch(e){
         return res.status(400).send('error');
@@ -77,10 +77,6 @@ router.post('/profile/like', async(req,res) =>{
     try{
         const user = await User.findByIdAndUpdate(userId,{$push:{likes:photoObject}});  
         const updatedUser = {_id:user._id,username:user.username,email:user.email,password:user.password, likes: [...user.likes, photoObject]}  
-        // const token = createToken(updatedUser);
-        // res.clearCookie('jwt');
-        // res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
-        //modify user list to add photo
         return res.status(200).send({updatedUser})
     }catch(e){
          res.send({message:"could not like message"})
@@ -96,6 +92,7 @@ router.post('/profile/unlike', async(req,res) =>{
         console.log("could not unlike photo")
     }
 })
+
 
 
 

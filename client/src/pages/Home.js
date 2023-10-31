@@ -1,5 +1,5 @@
 import React from "react";
-import HomeContent from "../components/UI/Home/Home";
+import HomeContent from "../components/Home/Home";
 import { getTokenDuration } from '../util/auth';
 import {  useRouteLoaderData } from "react-router-dom";
 import { useSelector } from "react-redux";

@@ -9,12 +9,12 @@ function PinList() {
     const isLoading = useSelector(state => state.pin.isLoading)
     const dispatch = useDispatch()
     const page = useRef(1);
-    const fetchPhotoHandler = async() =>{
+    // const fetchPhotoHandler = async() =>{
         
-       const response = await getRandomPhotos();
-       dispatch(pinActions.setPhotos(response.data))
-       dispatch(pinActions.toggleLoading(false))
-    }
+    //    const response = await getRandomPhotos();
+    //    dispatch(pinActions.setPhotos(response.data))
+    //    dispatch(pinActions.toggleLoading(false))
+    // }
 
     const handleScroll = useCallback(async() => {
         if(window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight){
@@ -36,12 +36,12 @@ function PinList() {
     }
 
     const pinList = photos.map((item)=>{
-        return (<Pin key={item.id} id={item.id} description={item.description} img={item.urls.regular} />)
+        return (<Pin page="pins" key={item.id} id={item.id} description={item.description} img={item.urls.regular} />)
     })
 
   return (
     <div className="py-2 px-16">
-        <button onClick={fetchPhotoHandler}>Replace photos</button>
+        {/* <button onClick={fetchPhotoHandler}>Replace photos</button> */}
         <ul className="lg:columns-7 columns-4 gap-y-20">
             {pinList}
         </ul>

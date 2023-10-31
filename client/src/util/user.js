@@ -15,8 +15,11 @@ export const fetchUserData = async (dispatch) => {
     }
       const id = decoded.id._id;
       const response = await getProfile(id,{headers})
+      console.log(response.data);
+      if(!response.data.user){
+        Cookies.remove('jwt');
+      }
       dispatch(userActions.setUserState(response.data))
-      console.log(response.data)
       // Dispatch an action to store the user ID in your Redux state.
     } catch (error) {
         console.log("no token")

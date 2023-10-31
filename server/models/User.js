@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
     likes: {
         type:Array,
         required: true
+    },
+    posts: {
+        type:Array,
+        required:true
     }
 });
 

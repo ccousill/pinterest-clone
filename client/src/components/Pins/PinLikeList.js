@@ -13,6 +13,7 @@ function PinLikeList() {
         id={item.photoId}
         description={item.description}
         img={item.imgURL}
+        page="likes"
       />
     );
   });

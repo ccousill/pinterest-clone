@@ -17,10 +17,10 @@ function Navbar() {
     userName = user.username
   }
   return (
-    <header className="bg-gray-800 w-full px-2">
+    <header className="bg-gray-600 w-full px-2">
       <nav className="flex flex-row w-full flex-wrap text-xl">
         <div className="flex flex-wrap p-3 flex-row items-center text-white space-x-3 text-center">
-          {userName && <h1>Welcome {userName}</h1>}
+          {userName && <h1>Welcome, {userName}</h1>}
         </div>
 
         <div className="flex flex-wrap p-3 flex-row items-center text-white space-x-3 text-center">
@@ -34,6 +34,9 @@ function Navbar() {
           
           <NavLink to="profile" className={({isActive}) => isActive ? "bg-black py-2 w-36 rounded-3xl" : "py-2 w-36 rounded-3xl hover:bg-black"}>
             Likes
+          </NavLink>
+          <NavLink to="userPins" className={({isActive}) => isActive ? "bg-black py-2 w-36 rounded-3xl" : "py-2 w-36 rounded-3xl hover:bg-black"}>
+            User Pins
           </NavLink>
         </div>
 
