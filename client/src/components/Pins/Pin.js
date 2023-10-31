@@ -54,12 +54,12 @@ function Pin({id,img,description}) {
 
 
   return (
-    <div className='w-full break-inside-avoid-column inline-block relative image-container'>
+    <div className='image-fade-in w-full break-inside-avoid-column inline-block relative image-container'>
         <img alt="" className="rounded-xl shadow-lg block w-full h-auto" src={img}/>
         <div className="overlay">
           <div className="options">
-            {!isLiked && <button onClick={handleLike} className="like-button">Like</button>}
-            {isLiked && <button onClick={handleUnlike} className="like-button">Unlike</button>}
+            {!isLiked && <button onClick={handleLike} className="bump like-button">Like</button>}
+            {isLiked && <button onClick={handleUnlike} className="bump like-button">Unlike</button>}
           </div>
         </div>
     </div>
