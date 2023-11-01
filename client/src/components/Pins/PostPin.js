@@ -29,6 +29,7 @@ function PostPin(props) {
             console.log(response.data)
             dispatch(userPinActions.addPhotos(response.data.post))
             dispatch(userActions.addPost(response.data.post._id))
+            props.setModal(false);
         }catch(e){
             console.log("could not post data")
         }

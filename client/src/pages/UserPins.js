@@ -6,14 +6,14 @@ import { getUserPins } from "../services/post";
 import PostPin from "../components/Pins/PostPin";
 function UserPins() {
   const [isLoading, setIsLoading] = useState(false);
-  const [showCart, setShowCart] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const isAuth = useSelector(state=>state.user.isAuth)
   const toggleFormHandler = () => {
-    if (!showCart) {
-      setShowCart(true);
+    if (!showModal) {
+      setShowModal(true);
     } else {
-      setShowCart(false);
+      setShowModal(false);
     }
   };
 
@@ -30,7 +30,7 @@ function UserPins() {
 
   return (
     <>
-      {showCart && <PostPin onClose={toggleFormHandler} />}
+      {showModal && <PostPin onClose={toggleFormHandler} setModal={setShowModal}/>}
       <button onClick={toggleFormHandler}>Post Pin</button>
       {!isLoading && isAuth && <UserPinList />}
       {(isLoading || !isAuth) && <p>loading...</p>}

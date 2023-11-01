@@ -1,4 +1,4 @@
-import { NavLink, useSubmit } from "react-router-dom";
+import { NavLink, useSubmit, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../store/user-slice";
 import NavLinkButton from "./UI/NavLinkButton";
@@ -17,18 +17,21 @@ function Navbar() {
   if(user){
     userName = user.username
   }
+
+  const location = useLocation();
+  const path = location.pathname;
   return (
-    <header className="w-full px-2 z-10">
+    <header className={`${(path === '/' || path === '/login' || path === '/signup') ? '' : ''}  relative w-full px-2 z-10`}>
       <nav className="flex flex-row w-full flex-wrap text-xl">
         <div className="flex flex-wrap p-3 flex-row items-center text-white space-x-3 text-center">
-          {userName && <h1 className="text-black">Welcome, {userName}</h1>}
+          {userName && <h1 className="text-black">{userName}</h1>}
         </div>
 
         <div className="flex flex-wrap p-3 flex-row items-center space-x-3 text-center">
             <NavLinkButton to="/">Home</NavLinkButton>
             <NavLinkButton to="/pins" >Pins</NavLinkButton>
-            <NavLinkButton to="/profile" >Likes</NavLinkButton>
-            <NavLinkButton to="/userPins" >User Pins</NavLinkButton>
+            {isAuth && <NavLinkButton to="/profile" >Likes</NavLinkButton>}
+            {isAuth && <NavLinkButton to="/userPins" >User Pins</NavLinkButton>}
         </div>
 
         <div className="flex flex-wrap flex-grow p-3 flex-row-reverse items-center text-white space-x-3 space-x-reverse text-center">
@@ -51,8 +54,6 @@ function Navbar() {
          
           )}
         </div>
-
-
       </nav>
     </header>
   );

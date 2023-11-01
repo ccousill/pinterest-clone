@@ -6,13 +6,14 @@ function UserPinList() {
   console.log(userPins);
 
   const pinList = userPins.map((item) => {
+    console.log(item.imgURL)
     return (
       <Pin
         page="userPins"
         key={item._id}
         id={item._id}
         description={item.description}
-        img="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png"
+        img={item.imgURL}
         userId={item.userId}
       />
     );

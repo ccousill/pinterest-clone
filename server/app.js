@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 const app = express();
 const cors = require('cors');
 const userRouter = require("./controllers/users")
@@ -12,7 +13,7 @@ const corsOptions = {
     origin: 'http://localhost:3000',
     credentials: true,
 };
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(cookieParser());
