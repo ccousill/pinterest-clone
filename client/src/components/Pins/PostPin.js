@@ -1,24 +1,32 @@
 import React,{useState} from "react";
 import Modal from "../UI/Modal";
 import { postPin } from "../../services/post";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { userPinActions } from "../../store/userPin-slice";
 function PostPin(props) {
     const [title,setTitle] = useState('');
     const [image,setImage] = useState('');
     const [description,setDescription] = useState('')
     const userId = useSelector(state => state.user.user.id)
+    const dispatch = useDispatch();
     const handleSubmit = async(e) =>{
         e.preventDefault();
-        console.log("hello")
+        const formData = new FormData();
+        formData.append('title',title);
+        formData.append('image',image);
+        formData.append('description',description);
+
         const payload = {
             title:title,
             image:image,
             description
         }
+
         console.log(payload)
         try{
-            const response = await postPin(userId,payload)
-            console.log(response.data)
+            const response = await postPin(userId,formData);
+            console.log(response)
+            dispatch(userPinActions.addPhotos(response.data.post))
         }catch(e){
             console.log("could not post data")
         }
@@ -49,8 +57,7 @@ function PostPin(props) {
                 name="image"
                 className="rounded-xl py-2 px-3 focus:outline-none focus:ring-1 focus:border-blue-300"
                 placeholder="image"
-                value={image}
-                onChange={(e)=> setImage(e.target.value)}
+                onChange={(e)=> setImage(e.target.files[0])}
               />
               <label htmlFor="image">Description: </label>
               <input

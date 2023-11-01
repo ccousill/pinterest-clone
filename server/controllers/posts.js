@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require('../models/User');
 const Post = require('../models/Post')
 const userUtils = require('../utils/userUtil');
-
+const upload = require('../utils/imageStoreUtils')
 router.get('/', async (req,res) =>{
     try{
         const posts = await Post.find();
@@ -14,16 +14,19 @@ router.get('/', async (req,res) =>{
     }
 })
 
-router.post('/post/:userId', async (req,res)=>{
-        const {title,image,description} = req.body
+router.post('/post/:userId', upload.single('image'), async (req,res)=>{
+        const imageFile = req.file;
+        const {title,description} = req.body
+        const url = `http://localhost:4000/uploads/${imageFile.filename}`
         const userId = req.params.userId
+
         const postData = {
             userId:userId,
             title:title,
-            imgURL:image,
+            imgURL:url,
             description:description
         }
-
+        
         try{
             const post = await Post.create(postData)
             console.log(post)
