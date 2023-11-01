@@ -5,6 +5,7 @@ const User = require('../models/User');
 const Post = require('../models/Post')
 const userUtils = require('../utils/userUtil');
 const upload = require('../utils/imageStoreUtils')
+
 router.get('/', async (req,res) =>{
     try{
         const posts = await Post.find();
@@ -29,12 +30,27 @@ router.post('/post/:userId', upload.single('image'), async (req,res)=>{
         
         try{
             const post = await Post.create(postData)
+            const user = await User.findByIdAndUpdate(userId,{$push:{posts:post._id}});  
             console.log(post)
             return res.send({message:"posted",post:post})
         }catch(e){
             console.log("error")
             return res.send({error:"Could not add post"})
         }
+});
+
+router.delete('/:userId/pins/:photoId', async(req,res)=>{
+        const userId = req.params.userId;
+        const photoId = req.params.photoId;
+        try{
+            const post = await Post.findByIdAndDelete(photoId);
+            const user = await User.findByIdAndUpdate(userId,{$pull:{posts:post._id, likes:{photoId:photoId}}})
+            return res.send({message:"Pin deleted",post:post})
+        }catch(e){
+            console.log("could not delete pin")
+            return res.send({message:"could not delete"})
+        }
+
 });
 
 

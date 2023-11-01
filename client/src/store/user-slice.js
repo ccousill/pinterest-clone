@@ -14,6 +14,7 @@ const userSlice = createSlice({
                 username: data.user.username,
                 email: data.user.email,
                 likes: data.user.likes,
+                posts: data.user.posts,
                 token: data.token
             }
             state.user = userData;
@@ -31,6 +32,9 @@ const userSlice = createSlice({
             state.user = {};
             state.isAuth = false;
         },
+        addPost(state,action){
+            state.user = {...state.user,posts: [...state.user.posts,action.payload]}
+        },
         setUserState(state,action){
             const data = action.payload
             const userData = {
@@ -38,6 +42,7 @@ const userSlice = createSlice({
                 username: data.user.username,
                 email: data.user.email,
                 likes: data.user.likes,
+                posts: data.user.posts,
                 token: data.token
             }
             state.user = userData;

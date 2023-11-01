@@ -3,6 +3,7 @@ import Modal from "../UI/Modal";
 import { postPin } from "../../services/post";
 import { useSelector, useDispatch } from "react-redux";
 import { userPinActions } from "../../store/userPin-slice";
+import { userActions } from "../../store/user-slice";
 function PostPin(props) {
     const [title,setTitle] = useState('');
     const [image,setImage] = useState('');
@@ -25,8 +26,9 @@ function PostPin(props) {
         console.log(payload)
         try{
             const response = await postPin(userId,formData);
-            console.log(response)
+            console.log(response.data)
             dispatch(userPinActions.addPhotos(response.data.post))
+            dispatch(userActions.addPost(response.data.post._id))
         }catch(e){
             console.log("could not post data")
         }

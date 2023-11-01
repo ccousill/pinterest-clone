@@ -15,6 +15,13 @@ const userPinSlice = createSlice({
         },
         addPhotos(state,action){
             state.photos = [...state.photos, action.payload]
+        },
+        deletePhotos(state,action){
+            console.log(action.payload);
+            const photoId = action.payload;
+            const filterArray = state.photos.filter(obj => obj._id !== photoId);
+            console.log(filterArray)
+            state.photos = filterArray
         }
     }
 })

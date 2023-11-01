@@ -9,9 +9,14 @@ export const postPin = async(id,pinData) => {
     });
 }
 
-
 export const getUserPins = async() => {
     return await axios.get(`http://localhost:4000/api/posts`,{
+        withCredentials: true
+    });
+}
+
+export const deletePin = async(userId,photoId) => {
+    return await axios.delete(`http://localhost:4000/api/posts/${userId}/pins/${photoId}`,{
         withCredentials: true
     });
 }

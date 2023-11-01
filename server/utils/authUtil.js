@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
+const secret = process.env.JWT_SECRET
 const createToken = (id) => {
-    return jwt.sign({id},'supersecret',{
+    return jwt.sign({id},"supersecret",{
         expiresIn: '1h'
     });
 }
@@ -16,7 +17,7 @@ const authenticateMiddleware = (req, res, next) => {
 
   try {
     // Verify the JWT and decode user information
-    const user = jwt.verify(token, 'supersecret'); // Use your secret key
+    const user = jwt.verify(token, "supersecret"); // Use your secret key
     req.user = user; // Attach user information to the request
     next();
   } catch (error) {

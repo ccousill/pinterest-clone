@@ -9,9 +9,7 @@ const maxAge = 3*24*60*60;
 router.post('/signup', async(req,res) =>{
     const {email,password} = req.body;
     const username = userUtils.createUserName(email);
-    
     try{
-
         const salt= await bcrypt.genSalt();
         hashedPassword = await bcrypt.hash(password,salt);
         const likes = []
@@ -92,9 +90,5 @@ router.post('/profile/unlike', async(req,res) =>{
         console.log("could not unlike photo")
     }
 })
-
-
-
-
 
 module.exports = router;
