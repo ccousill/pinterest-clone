@@ -23,7 +23,12 @@ function Home() {
   }
 
   return (
-    <div>
+    <div className=" relative">
+      <img
+        src="/home-image.jpg"
+        alt="Image"
+        className="w-full h-full absolute top-0 left-0 object-cover opacity-50 z-0"
+      />
     <HomeContent/>
     <button onClick={getUserRedux}>get Data</button>
     </div>

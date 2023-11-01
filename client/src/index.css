@@ -16,6 +16,11 @@
       border-radius: 10px;
       margin: 5rem auto;
   }
+  .background-image{
+    background-image: url('../public/home-image.jpg');
+    height: 400px;
+    
+  }
 
   .image-container{
     transition: filter 0.3s;
