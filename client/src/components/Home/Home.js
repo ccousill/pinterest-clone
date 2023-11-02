@@ -19,7 +19,7 @@ function HomeContent() {
       </div>}
       
     </div>
-    <div className="relative m-auto text-center">
+    <div className="relative text-center">
     <button
         className="my-12 bg-red-500 px-6 py-3 lg:w-1/6 md:w-1/5 rounded-3xl shadow-xl hover:bg-red-400 hover:translate-y-1 transition-all text-white"
         onClick={() => navigate("/pins")}
