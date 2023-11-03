@@ -25,7 +25,7 @@ router.post('/signup', async(req,res) =>{
         res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
         return res.status(201).json({token: `Bearer ${token}`,user});
     }catch(e){
-        return res.status(400).send('error');
+        return res.status(400).send({message:"could not create user", error: e});
     }
 });
 
@@ -33,7 +33,6 @@ router.post('/login', async(req,res) => {
     const {email,password} = req.body;
     try{
         const user = await User.findOne({email:email});
-        console.log(user)
         if(user){
             const auth = await bcrypt.compare(password,user.password)
             if(auth){
@@ -47,12 +46,12 @@ router.post('/login', async(req,res) => {
                 return res.status(200).send({token: `Bearer ${token}`,user})
             }
             return res.status(401).send("password is incorrect")
+        }else{
+            return res.status(400).send({message:"Could not find user"});
         }
     }catch(e){
-        return res.status(400).send(e);
+        return res.status(400).send({error:e});
     }
-
-
 });
 
 router.get('/profile/:id', authenticateMiddleware, async(req,res) =>{
@@ -61,7 +60,7 @@ router.get('/profile/:id', authenticateMiddleware, async(req,res) =>{
         const user = await User.findOne({_id:id});
         return res.status(200).send({user})
     }catch(e){
-        return res.status(400).send(e);
+        return res.status(400).send({message:"Could not find user",error:e});
     }
 });
 
@@ -77,7 +76,7 @@ router.post('/profile/like', async(req,res) =>{
         const updatedUser = {_id:user._id,username:user.username,email:user.email,password:user.password, likes: [...user.likes, photoObject]}  
         return res.status(200).send({updatedUser})
     }catch(e){
-         res.send({message:"could not like message"})
+         res.send({message:"could not like message",error:e})
     }
 })
 
@@ -87,7 +86,7 @@ router.post('/profile/unlike', async(req,res) =>{
         const user = await User.updateOne({_id:userId}, {$pull:{likes:{photoId:photoId}}});
         res.send({user});
     }catch(e){
-        console.log("could not unlike photo")
+        res.send({message:"could not unlike photo",error:e})
     }
 })
 

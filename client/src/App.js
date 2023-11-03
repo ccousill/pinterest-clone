@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Pins from './pages/Pins'
 import Signup from './pages/Signup'
 import UserPins from './pages/UserPins'
+import Error from './pages/Error'
 import { checkAuthLoader, tokenLoader, checkSignInState, RequireAuth } from './util/auth'
 import {action as logoutAction} from './pages/Logout'
 import {action as signinAction} from './pages/SigninAction'
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
     path:"/",
     element: <Root />,
     loader: tokenLoader,
+    errorElement: <Error/>,
     id: 'root',
     children:[
       {index: true, element: <Home/>},
