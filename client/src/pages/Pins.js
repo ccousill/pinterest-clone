@@ -16,7 +16,7 @@ function Pins() {
       };
       fetch();
     } catch (e) {
-      dispatch(pinActions.toggleLoading(false))
+      dispatch(pinActions.toggleLoading(false));
       console.log(e);
     }
   },[dispatch]);

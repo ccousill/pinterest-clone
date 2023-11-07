@@ -16,7 +16,9 @@ router.get('/', async (req,res) =>{
 })
 
 router.post('/post/:userId', upload.single('image'), async (req,res)=>{
+
         const imageFile = req.file;
+        console.log("log");
         const {title,description} = req.body
         const url = `http://localhost:4000/uploads/${imageFile.filename}`
         const userId = req.params.userId
