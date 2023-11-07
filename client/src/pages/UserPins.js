@@ -25,7 +25,7 @@ function UserPins() {
       console.log(response.data);
     };
     fetch();
-    setIsLoading(false);
+      setIsLoading(false);
   }, [dispatch]);
 
   return (

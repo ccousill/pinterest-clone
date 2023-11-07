@@ -12,7 +12,7 @@ export const fetchUserData = async (dispatch) => {
 
       const headers = {
         Authorization: `Bearer ${token}`
-    }
+      }
       const id = decoded.id._id;
       const response = await getProfile(id,{headers})
       console.log(response.data);

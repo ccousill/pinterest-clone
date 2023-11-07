@@ -6,7 +6,7 @@ const Post = require('../models/Post')
 const userUtils = require('../utils/userUtil');
 const upload = require('../utils/imageStoreUtils')
 
-router.get('/', async (req,res) =>{
+router.get('/',authenticateMiddleware,async (req,res) =>{
     try{
         const posts = await Post.find();
         return res.send(posts)
@@ -15,7 +15,7 @@ router.get('/', async (req,res) =>{
     }
 })
 
-router.post('/post/:userId', upload.single('image'), async (req,res)=>{
+router.post('/post/:userId',authenticateMiddleware ,upload.single('image'), async (req,res)=>{
 
         const imageFile = req.file;
         console.log("log");
@@ -41,7 +41,7 @@ router.post('/post/:userId', upload.single('image'), async (req,res)=>{
         }
 });
 
-router.delete('/:userId/pins/:photoId', async(req,res)=>{
+router.delete('/:userId/pins/:photoId',authenticateMiddleware ,async(req,res)=>{
         const userId = req.params.userId;
         const photoId = req.params.photoId;
         try{

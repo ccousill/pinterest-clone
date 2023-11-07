@@ -64,7 +64,7 @@ router.get('/profile/:id', authenticateMiddleware, async(req,res) =>{
     }
 });
 
-router.post('/profile/like', async(req,res) =>{
+router.post('/profile/like', authenticateMiddleware,async(req,res) =>{
     const {userId,photoId,imgURL,description} = req.body
     const photoObject = {
         photoId,
@@ -80,7 +80,7 @@ router.post('/profile/like', async(req,res) =>{
     }
 })
 
-router.post('/profile/unlike', async(req,res) =>{
+router.post('/profile/unlike', authenticateMiddleware,async(req,res) =>{
     const {userId,photoId} = req.body
     try{
         const user = await User.updateOne({_id:userId}, {$pull:{likes:{photoId:photoId}}});

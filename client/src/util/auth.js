@@ -34,6 +34,10 @@ export function tokenLoader(){
     return getAuthToken();
 }
 
+export function getHeaders(){
+    return {Authorization: `Bearer ${getAuthToken()}`}
+}
+
 export function checkAuthLoader(){
     const token = getAuthToken();
     if(!token){
