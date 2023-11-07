@@ -19,7 +19,8 @@ function SignupForm({ props }) {
     setIsError(false);
     try {
       let response = null;
-      if(password.length < 8){
+
+      if(password.length < 8 && props==="signup"){
         throw new Error('Password is too short');
       }
       const userLogin = {
@@ -41,7 +42,7 @@ function SignupForm({ props }) {
         setError("Email or Password is incorrect");
       }
       setIsError(true);
-      console.log(e);
+      console.log(e.toString());
     }
   };
   let title = "Login";

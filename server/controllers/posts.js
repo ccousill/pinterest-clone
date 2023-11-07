@@ -33,7 +33,6 @@ router.post('/post/:userId',authenticateMiddleware ,upload.single('image'), asyn
         try{
             const post = await Post.create(postData)
             const user = await User.findByIdAndUpdate(userId,{$push:{posts:post._id}});  
-            console.log(post)
             return res.send({message:"posted",post:post})
         }catch(e){
             console.log("error")

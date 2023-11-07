@@ -10,6 +10,7 @@ router.post('/signup', async(req,res) =>{
     const {email,password} = req.body;
     const username = userUtils.createUserName(email);
     try{
+        if(password < 8) throw new Error('Password must be more than 8 characters')
         const salt= await bcrypt.genSalt();
         hashedPassword = await bcrypt.hash(password,salt);
         const likes = []
@@ -25,7 +26,7 @@ router.post('/signup', async(req,res) =>{
         res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
         return res.status(201).json({token: `Bearer ${token}`,user});
     }catch(e){
-        return res.status(400).send({message:"could not create user", error: e});
+        return res.status(400).send({message:"Could not create user", error: e});
     }
 });
 
@@ -45,9 +46,9 @@ router.post('/login', async(req,res) => {
                 res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
                 return res.status(200).send({token: `Bearer ${token}`,user})
             }
-            return res.status(401).send("password is incorrect")
+            return res.status(401).send("Email or password is incorrect")
         }else{
-            return res.status(400).send({message:"Could not find user"});
+            return res.status(400).send({message:"Email or password is incorrect"});
         }
     }catch(e){
         return res.status(400).send({error:e});
