@@ -11,6 +11,7 @@ function Pins() {
     try {
       const fetch = async () => {      
        const response = await getRandomPhotos();
+       console.log(response.data);
        dispatch(pinActions.setPhotos(response.data))
        dispatch(pinActions.toggleLoading(false))
       };

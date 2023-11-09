@@ -13,7 +13,7 @@ function UserPinList() {
         key={item._id}
         id={item._id}
         description={item.description}
-        img={item.imgURL}
+        img={item.compressedImgURL}
         userId={item.userId}
       />
     );

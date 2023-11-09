@@ -1,15 +1,23 @@
 const multer = require('multer');
 const path = require('path')
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, path.join(__dirname,'../uploads/')); // Define your upload directory
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    },
-  });
+const sharp = require("sharp");
+const fs = require('fs');
+const originalStorage = multer.memoryStorage();
+const originalUpload = multer({storage: originalStorage});
+const scaleFactor = 0.2;
+const compressAndStore = async(file) => {
+  const processedImage = sharp(file.buffer)
+  .metadata().then((metadata) => {
+    const newWidth = Math.round(metadata.width * scaleFactor);
+    const newHeight = Math.round(metadata.height * scaleFactor);
+    return sharp(file.buffer).resize(newWidth,newHeight).toBuffer();
+  })
 
+  const processedImageData = await processedImage;
+  const compressedImageFilename = `compressed_${file.originalname}`;
+  const compressedImagePath = path.join(__dirname, '../uploads/', compressedImageFilename);
+ fs.writeFileSync(compressedImagePath, processedImageData);
+  return compressedImageFilename;
+}
 
-const upload = multer({storage:storage});
-
-module.exports = upload;
+module.exports = {originalUpload,compressAndStore};

@@ -8,10 +8,12 @@ function PostPin(props) {
     const [title,setTitle] = useState('');
     const [image,setImage] = useState('');
     const [description,setDescription] = useState('')
+    const [buttonText,setButtonText] = useState('Post');
     const userId = useSelector(state => state.user.user.id)
     const dispatch = useDispatch();
     const handleSubmit = async(e) =>{
         e.preventDefault();
+        setButtonText('Uploading...');
         const formData = new FormData();
         formData.append('title',title);
         formData.append('image',image);
@@ -30,7 +32,9 @@ function PostPin(props) {
             dispatch(userPinActions.addPhotos(response.data.post))
             dispatch(userActions.addPost(response.data.post._id))
             props.setModal(false);
+            setButtonText('Post');
         }catch(e){
+            setButtonText('Post');
             console.log("could not post data")
         }
         
@@ -75,7 +79,7 @@ function PostPin(props) {
                 type="submit"
                 className="py-2 w-full rounded-3xl text-white bg-red-600 mx-auto my-5 hover:bg-red-500"
               >
-                Post
+                {buttonText}
               </button>
             </form>
         </Modal>

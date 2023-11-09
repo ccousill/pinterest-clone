@@ -8,6 +8,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required:true
     },
+    compressedImgURL: {
+        type: String,
+        required: true
+    },
     description: {
         type:String,
         required:true

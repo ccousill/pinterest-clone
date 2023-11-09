@@ -97,7 +97,7 @@ function Pin({ id, img, description, page }) {
         </div>
       </div>
       {isLiked && <div className="absolute top-0 right-0 bg-red-500 bump text-white px-2 rounded-bl-xl rounded-tr-lg">Liked</div>}
-      {isUserPost && <button onClick={handleDelete} className="absolute top-1 left-1 w-6 h-6 p-2 text-white bg-red-500 rounded-full flex items-center justify-center hover:bg-red-400 text-sm">X</button>}
+      {isUserPost && <button onClick={handleDelete} className="absolute top-1 left-1 w-6 h-6 p-2 text-white bg-black rounded-full flex items-center justify-center hover:bg-red-500 text-sm">X</button>}
     </div>
   );
 
