@@ -43,7 +43,7 @@ router.post(
       try {
         const post = await Post.create(postData);
         const user = await User.findByIdAndUpdate(userId, {
-          $push: { posts: post._id },
+          $push: { posts: post },
         });
         return res.send({ message: "posted", post: post });
       } catch (e) {

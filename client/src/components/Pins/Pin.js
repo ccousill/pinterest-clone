@@ -7,7 +7,7 @@ import { deletePin } from "../../services/post";
 function Pin({ id, img, description, page }) {
   const user = useSelector((state) => state.user.user);
   const isLiked = user.likes.some((obj) => obj.photoId === id);
-  const isUserPost = user.posts.some((postId) => postId === id);
+  const isUserPost = user.posts.some((postId) => postId._id === id);
   const [isUnliked, setIsUnliked] = useState(false);
   const dispatch = useDispatch();
   const handleLike = async () => {

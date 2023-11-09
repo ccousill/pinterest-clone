@@ -30,7 +30,7 @@ function PostPin(props) {
             const response = await postPin(userId,formData);
             console.log(response.data)
             dispatch(userPinActions.addPhotos(response.data.post))
-            dispatch(userActions.addPost(response.data.post._id))
+            dispatch(userActions.addPost(response.data.post))
             props.setModal(false);
             setButtonText('Post');
         }catch(e){

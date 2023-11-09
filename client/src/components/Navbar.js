@@ -30,8 +30,9 @@ function Navbar() {
         <div className="flex flex-wrap p-3 flex-row items-center space-x-3 text-center">
             <NavLinkButton to="/">Home</NavLinkButton>
             <NavLinkButton to="/pins" >Pins</NavLinkButton>
-            {isAuth && <NavLinkButton to="/profile" >Likes</NavLinkButton>}
+            {isAuth && <NavLinkButton to="/likes" >Likes</NavLinkButton>}
             {isAuth && <NavLinkButton to="/userPins" >User Pins</NavLinkButton>}
+            {isAuth && <NavLinkButton to="/myPins" >My Pins</NavLinkButton>}
         </div>
 
         <div className="flex flex-wrap flex-grow p-3 flex-row-reverse items-center text-white space-x-3 space-x-reverse text-center">
