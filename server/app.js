@@ -17,7 +17,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(cookieParser());
-const dbURI = "mongodb://localhost:27017/pinterest-clone";
+const dbURI = process.env.MONGO_URI;
 
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true}).then((result) => app.listen(4000)).catch((err) => console.log(err));
 
