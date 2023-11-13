@@ -27,7 +27,6 @@ function Pin({ id, img, description, page }) {
     try {
       const response = await likePhoto(payload);
       dispatch(userActions.addLike(photoObject));
-      console.log(response.data);
     } catch (e) {
       console.log("could not like photo");
     }
@@ -57,21 +56,26 @@ function Pin({ id, img, description, page }) {
     }
   };
 
+  const confirmDeletion = () => {
+    return window.confirm('Are you sure you want to delete this item?');
+  };
+
   const handleDelete = async () =>{
     const userId = user.id
     const photoId = id;
     try{
-      const isConfirmed = window.confirm('Are you sure you want to delete this item?');
-      if(isConfirmed){
+      if(confirmDeletion()){
       const response = await deletePin(userId,photoId);
       dispatch(userPinActions.deletePhotos(photoId))
       dispatch(userActions.removeLike({photoId:photoId}))
+      dispatch(userActions.removePost({photoId:photoId}))
       console.log(response.data)
       }
     }catch{
       console.log("could not delete pin")
     }
   }
+
 
 
   let pageType = (

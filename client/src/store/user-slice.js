@@ -35,6 +35,12 @@ const userSlice = createSlice({
         addPost(state,action){
             state.user = {...state.user,posts: [...state.user.posts,action.payload]}
         },
+        removePost(state,action){
+            const {photoId} = action.payload;
+            const filterArray = state.user.posts.filter(obj => obj._id !== photoId);
+            console.log(filterArray)
+            state.user.posts = filterArray
+        },
         setUserState(state,action){
             const data = action.payload
             const userData = {

@@ -62,10 +62,12 @@ router.delete(
   async (req, res) => {
     const userId = req.params.userId;
     const photoId = req.params.photoId;
+
     try {
       const post = await Post.findByIdAndDelete(photoId);
+
       const user = await User.findByIdAndUpdate(userId, {
-        $pull: { posts: post._id, likes: { photoId: photoId } },
+        $pull: { posts: { _id: post._id }, likes: { photoId: photoId } },
       });
       return res.send({ message: "Pin deleted", post: post });
     } catch (e) {
