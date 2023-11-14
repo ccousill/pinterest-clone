@@ -26,6 +26,7 @@ function Pin({ id, img, description, page }) {
     };
     try {
       const response = await likePhoto(payload);
+      console.log(response);
       dispatch(userActions.addLike(photoObject));
     } catch (e) {
       console.log("could not like photo");

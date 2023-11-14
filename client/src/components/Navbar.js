@@ -1,6 +1,7 @@
 import { NavLink, useSubmit, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../store/user-slice";
+import {signOutOfGoogle} from "../firebase/firebase";
 import NavLinkButton from "./UI/NavLinkButton";
 import Button from "./UI/Button";
 function Navbar() {
@@ -9,8 +10,15 @@ function Navbar() {
   const isAuth = useSelector((state) => state.user.isAuth);
   const user = useSelector((state)=>state.user.user);
   const handleLogout = async () => {
-    dispatch(userActions.logout());
-    submit(null, { action: "logout", method: "post" });
+    
+    try {
+      await signOutOfGoogle();
+      dispatch(userActions.logout());
+      submit(null, { action: "logout", method: "post" });
+    } catch (error) {
+      console.error("Error signing out:", error.message);
+    }
+    
   };
   let userName = null
 
