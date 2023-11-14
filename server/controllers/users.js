@@ -55,6 +55,41 @@ router.post('/login', async(req,res) => {
     }
 });
 
+router.post('/googleLogin', async(req,res) => {
+    const {email} = req.body;
+    try{
+        const user = await User.findOne({email:email});
+        if(user){
+                const tokenData = {
+                    _id: user._id,
+                    username: user.username,
+                    email: user.email
+                }
+                const token = createToken(tokenData);
+                res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
+                return res.status(200).send({token: `Bearer ${token}`,user})
+        }else{
+            
+            const username = userUtils.createUserName(email);
+            const likes = []
+            const posts = []
+            const user = await User.create({username,email,password:"pass",likes,posts});
+            console.log("google login");
+            const tokenData = {
+                _id: user._id,
+                username: user.username,
+                email: user.email
+            }
+            const token = createToken(tokenData);
+            res.cookie('jwt',token,{secure:false,maxAge: maxAge*1000});
+            return res.status(200).send({token: `Bearer ${token}`,user})
+        }
+    }catch(e){
+        return res.status(400).send({error:e});
+    }
+});
+
+
 router.get('/profile/:id', authenticateMiddleware, async(req,res) =>{
     const id = req.params.id
     try{

@@ -12,6 +12,12 @@ export const login = async(userData) => {
     });
 }
 
+export const googleLogin = async(userData) => {
+    return await axios.post('http://localhost:4000/api/users/googleLogin',userData,{
+        withCredentials: true,
+    });
+}
+
 export const getProfile = async(id,header) =>{
     return await axios.get(`http://localhost:4000/api/users/profile/${id}`, header);
 }

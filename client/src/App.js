@@ -13,6 +13,7 @@ import MyPins from './pages/MyPins'
 import { checkAuthLoader, tokenLoader, checkSignInState, RequireAuth } from './util/auth'
 import {action as logoutAction} from './pages/Logout'
 import {action as signinAction} from './pages/SigninAction'
+import { onAuthStateChanged } from "./firebase/firebase"
 import PinLikes from './pages/PinLikes'
 import { useDispatch } from 'react-redux'
 
@@ -46,6 +47,15 @@ function App() {
   useEffect(() => {
     fetchUserData(dispatch)
   },[dispatch])
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged((user) => {
+      console.log("google state change",user)
+    });
+
+    // Clean up the subscription when the component unmounts
+    return () => unsubscribe();
+  }, []);
 
   return (
     <RouterProvider router={router}/>

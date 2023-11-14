@@ -5,6 +5,7 @@ import { userActions } from "../store/user-slice";
 import { useSubmit } from "react-router-dom";
 import * as userService from "../services/user";
 import Card from "./UI/Card";
+import GoogleSignIn from "./UI/GoogleSignIn";
 function SignupForm({ props }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -79,6 +80,7 @@ function SignupForm({ props }) {
           {buttonText}
         </button>
       </form>
+      <GoogleSignIn/>
     </Card>
   );
 }
