@@ -15,7 +15,7 @@ router.post('/signup', async(req,res) =>{
         hashedPassword = await bcrypt.hash(password,salt);
         const likes = []
         const posts = []
-        const user = await User.create({username,email,password:hashedPassword,likes,posts});
+        const user = await User.create({username,email,password:hashedPassword,likes,posts,isGoogleAccount:false});
 
         const tokenData = {
             _id: user._id,
@@ -34,7 +34,7 @@ router.post('/login', async(req,res) => {
     const {email,password} = req.body;
     try{
         const user = await User.findOne({email:email});
-        if(user){
+        if(user && !user.isGoogleAccount){
             const auth = await bcrypt.compare(password,user.password)
             if(auth){
                 const tokenData = {
@@ -73,7 +73,7 @@ router.post('/googleLogin', async(req,res) => {
             const username = userUtils.createUserName(email);
             const likes = []
             const posts = []
-            const user = await User.create({username,email,password:"pass",likes,posts});
+            const user = await User.create({username,email,password:"pass",likes,posts,isGoogleAccount:true});
             console.log("google login");
             const tokenData = {
                 _id: user._id,

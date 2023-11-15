@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
     posts: {
         type:Array,
         required:true
+    },
+    isGoogleAccount: {
+        type:Boolean,
+        required:true
     }
 });
 
