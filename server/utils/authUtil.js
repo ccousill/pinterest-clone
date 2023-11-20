@@ -7,7 +7,6 @@ const createToken = (id) => {
 }
 
 const authenticateMiddleware = (req, res, next) => {
-
   // Get the JWT token from the request (e.g., from cookies or headers)
   const token = req.headers.authorization && req.headers.authorization.split(' ')[1] // Adjust this according to your setup
   if (!token) {

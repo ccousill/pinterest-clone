@@ -38,12 +38,21 @@ router.post(
         compressedImgURL: compressedURL,
         imgURL: url,
         description: description,
+        likedBy: []
       };
 
       try {
         const post = await Post.create(postData);
+        const postObj = {
+          _id: post._id,
+          userId: post.userId,
+          description: post.description,
+          compressedImgURL: post.compressedImgURL,
+          imgUrl: post.imgURL,
+          title: post.title
+        }
         const user = await User.findByIdAndUpdate(userId, {
-          $push: { posts: post },
+          $push: { posts: postObj },
         });
         return res.send({ message: "posted", post: post });
       } catch (e) {

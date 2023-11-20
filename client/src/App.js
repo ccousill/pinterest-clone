@@ -10,6 +10,7 @@ import Signup from './pages/Signup'
 import UserPins from './pages/UserPins'
 import Error from './pages/Error'
 import MyPins from './pages/MyPins'
+import Profile from './pages/Profile'
 import { checkAuthLoader, tokenLoader, checkSignInState, RequireAuth } from './util/auth'
 import {action as logoutAction} from './pages/Logout'
 import {action as signinAction} from './pages/SigninAction'
@@ -36,7 +37,8 @@ const router = createBrowserRouter([
       {path: "signinAction", action: signinAction},
       {path: "likes", element: <PinLikes/>, loader:checkAuthLoader},
       {path: "userPins", element: <UserPins/>, loader: checkAuthLoader},
-      {path: "myPins",element: <MyPins/>,loader:checkAuthLoader}
+      {path: "myPins",element: <MyPins/>,loader:checkAuthLoader},
+      {path: "profile",element: <Profile/>, loader:checkAuthLoader}
       
     ]
   }

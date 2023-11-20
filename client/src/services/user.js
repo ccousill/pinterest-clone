@@ -35,4 +35,12 @@ export const unlikePhoto = async(data) =>{
      });
 }
 
+export const deleteAccount = async(id) =>{
+    console.log(getHeaders());
+    return await axios.delete(`http://localhost:4000/api/users/profile/deleteAccount/${id}`,{
+        withCredentials: true,
+        headers:getHeaders()
+    });
+}
+
 

@@ -1,9 +1,12 @@
 import { NavLink, useSubmit, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../store/user-slice";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import {signOutOfGoogle} from "../firebase/firebase";
 import NavLinkButton from "./UI/NavLinkButton";
 import Button from "./UI/Button";
+
 function Navbar() {
   const submit = useSubmit();
   const dispatch = useDispatch();
@@ -45,7 +48,7 @@ function Navbar() {
 
         <div className="flex flex-wrap flex-grow p-3 flex-row-reverse items-center text-white space-x-3 space-x-reverse text-center">
          
-
+        
           {!isAuth && (
             <NavLink to="signup"className={({isActive}) => isActive ? "bg-red-600 py-2 w-36 rounded-3xl font-extrabold  text-white" : "text-black py-2 w-36 rounded-3xl font-extrabold hover:bg-red-500 hover:text-white"}>
               Sign up
@@ -58,9 +61,10 @@ function Navbar() {
           )}
 
           {isAuth && (
-           
+            <div>
+              <NavLink to="profile"><FontAwesomeIcon className="mx-12 hover:cursor-pointer text-black" icon={faUser}/> </NavLink>
               <Button onClick={handleLogout} className="bg-red-500 hover:bg-red-400 font-extrabold">Logout</Button>
-         
+              </div>
           )}
         </div>
       </nav>

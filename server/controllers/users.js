@@ -2,6 +2,7 @@ const express = require('express');
 const {authenticateMiddleware} = require('../utils/authUtil');
 const router = express.Router();
 const User = require('../models/User');
+const Post = require('../models/Post');
 const userUtils = require('../utils/userUtil');
 const bcrypt = require('bcrypt')
 const {createToken} = require('../utils/authUtil')
@@ -16,7 +17,6 @@ router.post('/signup', async(req,res) =>{
         const likes = []
         const posts = []
         const user = await User.create({username,email,password:hashedPassword,likes,posts,isGoogleAccount:false});
-
         const tokenData = {
             _id: user._id,
             username: user.username,
@@ -108,11 +108,15 @@ router.post('/profile/like', authenticateMiddleware,async(req,res) =>{
         description
     }
     try{
-        const user = await User.findByIdAndUpdate(userId,{$push:{likes:photoObject}});  
+        const user = await User.findByIdAndUpdate(userId,{$push:{likes:photoObject}});
+        if(photoId.length > 23){
+         const post = await Post.findByIdAndUpdate(photoId,{$push:{likedBy:userId}});  
+        }
+
         const updatedUser = {_id:user._id,username:user.username,email:user.email,password:user.password, likes: [...user.likes, photoObject]}  
         return res.status(200).send({updatedUser})
     }catch(e){
-         res.send({message:"could not like message",error:e})
+        return res.status(400).send({message:"could not like message",error:e})
     }
 })
 
@@ -120,9 +124,31 @@ router.post('/profile/unlike', authenticateMiddleware,async(req,res) =>{
     const {userId,photoId} = req.body
     try{
         const user = await User.updateOne({_id:userId}, {$pull:{likes:{photoId:photoId}}});
-        res.send({user});
+        return res.status(200).send({user});
     }catch(e){
-        res.send({message:"could not unlike photo",error:e})
+        return res.status(400).send({message:"could not unlike photo",error:e})
+    }
+})
+
+router.delete('/profile/deleteAccount/:id', authenticateMiddleware,async(req,res) =>{
+    const id = req.params.id
+    
+    try{
+        const user = await User.findOne({_id:id});
+        
+        for(const post of user.posts){
+            const userPost = await Post.findOne({_id:post._id});
+            console.log(userPost.likedBy);
+            for(const likedById of userPost.likedBy){
+                await User.updateOne({_id:likedById}, {$pull:{likes:{photoId:post._id.toString()}}});
+               
+            }
+            await Post.findByIdAndDelete(post._id);
+        }
+        await User.findByIdAndDelete(id);
+        return res.status(200).send({message: "account successfully deleted"});
+    }catch(e){
+        return res.status(400).send({message: "could not delete account"});
     }
 })
 
