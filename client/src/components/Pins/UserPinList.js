@@ -3,10 +3,8 @@ import { useSelector } from "react-redux";
 import Pin from "./Pin";
 function UserPinList() {
   const userPins = useSelector((state) => state.userPin.photos);
-  console.log(userPins);
-
   const pinList = userPins.map((item) => {
-    console.log(item.imgURL)
+    console.log(item)
     return (
       <Pin
         page="userPins"

@@ -7,18 +7,25 @@ import { userActions } from "../../store/user-slice";
 function PostPin(props) {
     const [title,setTitle] = useState('');
     const [image,setImage] = useState('');
-    const [description,setDescription] = useState('')
+    const [description,setDescription] = useState('');
+    const [error,setError] = useState(false);
     const [buttonText,setButtonText] = useState('Post');
-    const userId = useSelector(state => state.user.user.id)
+    const userId = useSelector(state => state.user.user.id);
     const dispatch = useDispatch();
     const handleSubmit = async(e) =>{
         e.preventDefault();
+        setError(false);
+        if(title === '' || image === '' || description === ''){
+          setError(true);
+          return;
+        }
         setButtonText('Uploading...');
         const formData = new FormData();
         formData.append('title',title);
         formData.append('image',image);
         formData.append('description',description);
 
+        
         const payload = {
             title:title,
             image:image,
@@ -34,6 +41,7 @@ function PostPin(props) {
             props.setModal(false);
             setButtonText('Post');
         }catch(e){
+            setError(true);
             setButtonText('Post');
             console.log("could not post data")
         }
@@ -81,6 +89,7 @@ function PostPin(props) {
               >
                 {buttonText}
               </button>
+              {error && <p className="text-red-400">Could not Post</p>}
             </form>
         </Modal>
       }
